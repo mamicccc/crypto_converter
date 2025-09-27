@@ -1,0 +1,13 @@
+import requests
+
+amount = float(input("Enter amount: "))
+from_coin = input("From coin (e.g. bitcoin): ").lower()
+to_coin = input("To coin (e.g. ethereum): ").lower()
+
+url = f"https://api.coingecko.com/api/v3/simple/price?ids={from_coin},{to_coin}&vs_currencies=usd"
+data = requests.get(url).json()
+
+usd_value = data[from_coin]["usd"] * amount
+converted = usd_value / data[to_coin]["usd"]
+
+print(f"{amount} {from_coin} = {converted:.6f} {to_coin}")
